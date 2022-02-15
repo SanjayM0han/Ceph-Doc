@@ -114,7 +114,7 @@ def normalize_hostnames(ctx):
     ctx.cluster.run(args=[
         'test',
         run.Raw('$(hostname)'),
-        '==',
+        run.Raw('=='),
         run.Raw('$(hostname -s)'),
         run.Raw('||'),
         'sudo',
