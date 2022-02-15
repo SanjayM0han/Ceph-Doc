@@ -105,18 +105,8 @@ def normalize_hostnames(ctx):
     remote.shortname and socket.gethostname() in cephadm.
     """
     log.info('Normalizing hostnames...')
-    ctx.cluster.run(args=[
-        'hostname',
-    ])
-    ctx.cluster.run(args=[
-        'hostname', '-s',
-    ])
-    ctx.cluster.run(args=[
-        'test',
-        run.Raw('$(hostname)'),
-        run.Raw('=='),
-        run.Raw('$(hostname -s)'),
-        run.Raw('||'),
+    cluster = ctx.cluster.filter(lambda r: '.' in r.hostname)
+    cluster.run(args=[
         'sudo',
         'hostname',
         run.Raw('$(hostname -s)'),
