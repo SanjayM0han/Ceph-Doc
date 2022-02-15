@@ -106,6 +106,12 @@ def normalize_hostnames(ctx):
     """
     log.info('Normalizing hostnames...')
     ctx.cluster.run(args=[
+        'hostname',
+    ])
+    ctx.cluster.run(args=[
+        'hostname', '-s',
+    ])
+    ctx.cluster.run(args=[
         'test',
         run.Raw('$(hostname)'),
         '==',
